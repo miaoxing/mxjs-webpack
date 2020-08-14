@@ -56,7 +56,7 @@ class WebpackConfig {
         extensions: ['.tsx', '.ts', '.js'],
         modules: [
           this.rootDir,
-          'node_modules'
+          'node_modules',
         ],
         alias: {
           'react-dom': '@hot-loader/react-dom',
@@ -81,7 +81,7 @@ class WebpackConfig {
               useCache: true,
               cacheDirectory: 'node_modules/.cache/awcache',
               forceIsolatedModules: true,
-            }
+            },
           },
           {
             test: /.js$/,
@@ -98,16 +98,16 @@ class WebpackConfig {
                 options: {
                   plugins: function () {
                     return [
-                      require('autoprefixer')
+                      require('autoprefixer'),
                     ];
-                  }
-                }
+                  },
+                },
               },
               {
                 loader: 'sass-loader',
                 options: this.sassLoaderOptions,
               },
-            ]
+            ],
           },
           {
             test: /\.less$/,
@@ -117,8 +117,8 @@ class WebpackConfig {
               {
                 loader: 'less-loader',
                 options: this.lessLoaderOptions,
-              }
-            ]
+              },
+            ],
           },
           {
             test: /\.(jpg|png|gif|svg|ttf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
@@ -126,21 +126,21 @@ class WebpackConfig {
             options: {
               // 只支持hash，相当于contenthash
               // https://github.com/webpack-contrib/file-loader/issues/177
-              name: useVersioning ? '[path][name]-[hash:6].[ext]' : '[path][name].[ext]'
-            }
-          }
-        ]
+              name: useVersioning ? '[path][name]-[hash:6].[ext]' : '[path][name].[ext]',
+            },
+          },
+        ],
       },
       externals: this.externals,
       optimization: {
         removeAvailableModules: this.isProd,
         removeEmptyChunks: this.isProd,
         // splitChunks: this.isProd ? {} : false,
-        minimizer: []
+        minimizer: [],
       },
       plugins: [
         new HappyPack({
-          loaders: ['babel-loader?cacheDirectory']
+          loaders: ['babel-loader?cacheDirectory'],
         }),
         new ExtractCssChunks({
           filename: useVersioning ? '[name]-[contenthash:6].css' : '[name].css',
@@ -154,20 +154,20 @@ class WebpackConfig {
         // @link https://github.com/webpack/webpack-dev-server/issues/1604
         disableHostCheck: true,
         headers: {
-          'Access-Control-Allow-Origin': '*'
-        }
+          'Access-Control-Allow-Origin': '*',
+        },
       },
       watchOptions: {
         ignored: [
           /node_modules/,
           /\.php$/,
-        ]
-      }
+        ],
+      },
     };
 
     if (this.manifest) {
       config.optimization.runtimeChunk = {
-        name: (this.name ? this.name + '-' : '') + 'manifest'
+        name: (this.name ? this.name + '-' : '') + 'manifest',
       };
     }
 
@@ -189,21 +189,21 @@ class WebpackConfig {
       loader: ExtractCssChunks.loader,
       options: {
         hot: this.isHot, // 需加上才会重新加载全部CSS
-      }
+      },
     };
   }
 
   getWebpackLoaderOptionsPlugin() {
     return new webpack.LoaderOptionsPlugin({
       minimize: true,
-      debug: false
+      debug: false,
     });
   }
 
   getUglifyJSPlugin() {
     return new UglifyJSPlugin({
       cache: true,
-      parallel: true
+      parallel: true,
     });
   }
 
@@ -220,7 +220,7 @@ class WebpackConfig {
           obj.path = match[2];
         }
         return obj;
-      }
+      },
     });
   }
 
