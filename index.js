@@ -76,7 +76,10 @@ class WebpackConfig {
           {
             test: /\.tsx?$/,
             loader: 'awesome-typescript-loader',
-            exclude: /node_modules/,
+            exclude: [
+              /node_modules/,
+              /\.test\.tsx?$/
+            ],
             options: {
               useCache: true,
               cacheDirectory: 'node_modules/.cache/awcache',
@@ -86,7 +89,10 @@ class WebpackConfig {
           {
             test: /.js$/,
             use: 'happypack/loader',
-            exclude: /node_modules/,
+            exclude: [
+              /node_modules/,
+              /\.test\.js$/
+            ],
           },
           {
             test: /\.(sa|sc|c)ss$/,
