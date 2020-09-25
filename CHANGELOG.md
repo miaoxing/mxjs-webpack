@@ -1,3 +1,10 @@
+## [0.1.1](https://github.com/miaoxing/mxjs-webpack/compare/v0.1.0...v0.1.1) (2020-09-25)
+
+
+### Bug Fixes
+
+* 忽略测试文件 ([7e1f963](https://github.com/miaoxing/mxjs-webpack/commit/7e1f963fe7fb43e4d8fa89c4786311c2bdb7d629))
+
 # 0.1.0 (2020-07-30)
 
 
