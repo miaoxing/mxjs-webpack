@@ -70,6 +70,8 @@ class WebpackConfig {
         filename: useVersioning ? '[name]-[chunkhash:6].js' : '[name].js',
         chunkFilename: useVersioning ? '[name]-[chunkhash:6].js' : '[name].js',
         pathinfo: false,
+        // Fix https://reactjs.org/docs/cross-origin-errors.html
+        crossOriginLoading: 'anonymous',
       },
       module: {
         rules: [
