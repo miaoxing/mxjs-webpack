@@ -1,3 +1,10 @@
+## [0.1.2](https://github.com/miaoxing/mxjs-webpack/compare/v0.1.1...v0.1.2) (2021-03-05)
+
+
+### Bug Fixes
+
+* 解决 react 错误不能正常显示 ([c2b619f](https://github.com/miaoxing/mxjs-webpack/commit/c2b619f3e258a37d3d26e642075913021cfb6087))
+
 ## [0.1.1](https://github.com/miaoxing/mxjs-webpack/compare/v0.1.0...v0.1.1) (2020-09-25)
 
 
