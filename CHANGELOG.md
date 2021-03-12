@@ -1,3 +1,10 @@
+## [0.1.3](https://github.com/miaoxing/mxjs-webpack/compare/v0.1.2...v0.1.3) (2021-03-12)
+
+
+### Bug Fixes
+
+* 更新前端包依赖 ([dbab4fb](https://github.com/miaoxing/mxjs-webpack/commit/dbab4fbc8cefd1866a5d9198b50649a6a8be4efe))
+
 ## [0.1.2](https://github.com/miaoxing/mxjs-webpack/compare/v0.1.1...v0.1.2) (2021-03-05)
 
 
