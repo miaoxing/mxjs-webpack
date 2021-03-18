@@ -4,6 +4,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const HappyPack = require('happypack');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 // const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 // const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -58,9 +59,6 @@ class WebpackConfig {
           this.rootDir,
           'node_modules',
         ],
-        alias: {
-          'react-dom': '@hot-loader/react-dom',
-        },
       },
       // NOTE: 需直接传入结果，不能使用回调函数，否则HMR不生效
       entry: this.getEntries(),
@@ -90,7 +88,9 @@ class WebpackConfig {
           },
           {
             test: /.js$/,
-            use: 'happypack/loader',
+            use: [
+              'happypack/loader',
+            ],
             exclude: [
               /node_modules/,
               /\.test\.js$/
@@ -148,15 +148,26 @@ class WebpackConfig {
       },
       plugins: [
         new HappyPack({
-          loaders: ['babel-loader?cacheDirectory'],
+          loaders: [
+            {
+              loader: 'babel-loader',
+              options: {
+                cacheDirectory: true,
+                plugins: [
+                  !this.isProd && require.resolve('react-refresh/babel'),
+                ].filter(Boolean),
+              },
+            },
+          ],
         }),
         new ExtractCssChunks({
           filename: useVersioning ? '[name]-[contenthash:6].css' : '[name].css',
           orderWarning: true,
         }),
+        !this.isProd && new ReactRefreshWebpackPlugin(),
         // new HardSourceWebpackPlugin(),
         // new BundleAnalyzerPlugin(),
-      ],
+      ].filter(Boolean),
       devServer: {
         // Fix "Invalid Host/Origin Header" warning
         // @link https://github.com/webpack/webpack-dev-server/issues/1604

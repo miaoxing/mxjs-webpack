@@ -8,30 +8,31 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "@babel/core": "^7.9.0",
     "@hot-loader/react-dom": "^16.11.0",
-    "awesome-typescript-loader": "^5.2.1",
     "autoprefixer": "^9.7.4",
+    "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.2",
     "extract-css-chunks-webpack-plugin": "^4.7.4",
     "file-loader": "^5.0.2",
-    "css-loader": "^3.4.2",
+    "happypack": "^5.0.1",
     "less": "^3.10.3",
     "less-loader": "^6.1.0",
     "node-sass": "^4.13.1",
     "node-sass-chokidar": "^1.4.0",
     "postcss-loader": "^3.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "sass-loader": "^8.0.2",
     "script-loader": "^0.7.2",
+    "typescript": "^3.8.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1",
     "webpack-manifest-plugin": "^2.2.0",
-    "react-hot-loader": "^4.12.18",
-    "happypack": "^5.0.1",
-    "typescript": "^3.8.3"
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+    "react-refresh": "^0.9.0"
   }
 }
