@@ -1,9 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
-const HappyPack = require('happypack');
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 // const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 // const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
@@ -24,7 +22,9 @@ class WebpackConfig {
     }
 
     this.isProd = process.env.NODE_ENV === 'production';
-    this.isHot = path.basename(require.main.filename) === 'webpack-dev-server.js';
+    // TODO better detection
+    this.isHot = process.argv[3] === '--hot';
+
     // HMR不支持chunkhash，只支持hash
     this.useVersioning = !this.isHot;
     this.publicPath = this.isProd ? '/' + this.distDir + '/' : 'http://localhost:8080/' + this.distDir + '/';
@@ -51,7 +51,11 @@ class WebpackConfig {
     const useVersioning = this.useVersioning;
 
     const config = {
+      name: this.name,
       mode: this.isProd ? 'production' : 'development',
+      // HMR/Live Reloading broken
+      // https://github.com/webpack/webpack-dev-server/issues/2758#issuecomment-710086019
+      target: this.isProd ? 'browserslist' : 'web',
       devtool: this.isProd ? false : 'eval',
       resolve: {
         extensions: ['.tsx', '.ts', '.js'],
@@ -89,7 +93,15 @@ class WebpackConfig {
           {
             test: /.js$/,
             use: [
-              'happypack/loader',
+              {
+                loader: 'babel-loader',
+                options: {
+                  cacheDirectory: true,
+                  plugins: [
+                    !this.isProd && require.resolve('react-refresh/babel'),
+                  ].filter(Boolean),
+                },
+              },
             ],
             exclude: [
               /node_modules/,
@@ -99,15 +111,18 @@ class WebpackConfig {
           {
             test: /\.(sa|sc|c)ss$/,
             use: [
-              this.getExtractCssChunksLoader(),
+              MiniCssExtractPlugin.loader,
+              // 'style-loader',
               'css-loader',
               {
                 loader: 'postcss-loader',
                 options: {
-                  plugins: function () {
-                    return [
-                      require('autoprefixer'),
-                    ];
+                  postcssOptions: {
+                    plugins: [
+                      [
+                        'autoprefixer',
+                      ],
+                    ],
                   },
                 },
               },
@@ -120,7 +135,8 @@ class WebpackConfig {
           {
             test: /\.less$/,
             use: [
-              this.getExtractCssChunksLoader(),
+              MiniCssExtractPlugin.loader,
+              // 'style-loader',
               'css-loader',
               {
                 loader: 'less-loader',
@@ -144,25 +160,11 @@ class WebpackConfig {
         removeAvailableModules: this.isProd,
         removeEmptyChunks: this.isProd,
         // splitChunks: this.isProd ? {} : false,
-        minimizer: [],
       },
       plugins: [
-        new HappyPack({
-          loaders: [
-            {
-              loader: 'babel-loader',
-              options: {
-                cacheDirectory: true,
-                plugins: [
-                  !this.isProd && require.resolve('react-refresh/babel'),
-                ].filter(Boolean),
-              },
-            },
-          ],
-        }),
-        new ExtractCssChunks({
+        new MiniCssExtractPlugin({
           filename: useVersioning ? '[name]-[contenthash:6].css' : '[name].css',
-          orderWarning: true,
+          chunkFilename: useVersioning ? '[id]-[contenthash:6].css' : '[id].css',
         }),
         !this.isProd && new ReactRefreshWebpackPlugin(),
         // new HardSourceWebpackPlugin(),
@@ -178,8 +180,8 @@ class WebpackConfig {
       },
       watchOptions: {
         ignored: [
-          /node_modules/,
-          /\.php$/,
+          '**/node_modules',
+          '**/*.php',
         ],
       },
     };
@@ -195,21 +197,11 @@ class WebpackConfig {
     }
 
     if (isProd) {
-      config.optimization.minimizer.push(this.getUglifyJSPlugin());
-      config.plugins.push(new webpack.HashedModuleIdsPlugin());
+      config.optimization.moduleIds = 'deterministic';
       config.plugins.push(this.getWebpackLoaderOptionsPlugin());
     }
 
     return config;
-  }
-
-  getExtractCssChunksLoader() {
-    return {
-      loader: ExtractCssChunks.loader,
-      options: {
-        hot: this.isHot, // 需加上才会重新加载全部CSS
-      },
-    };
   }
 
   getWebpackLoaderOptionsPlugin() {
@@ -219,22 +211,15 @@ class WebpackConfig {
     });
   }
 
-  getUglifyJSPlugin() {
-    return new UglifyJSPlugin({
-      cache: true,
-      parallel: true,
-    });
-  }
-
   getManifestPluginConfig() {
-    return new ManifestPlugin({
+    return new WebpackManifestPlugin({
       fileName: (this.name ? this.name + '-' : '') + 'assets-hash.json',
       filter: function (obj) {
         return obj.isInitial;
       },
       map: function (obj) {
         // path改为只要hash部分
-        var match = /(.+?)-(\w{6})\.(js|css)$/.exec(obj.path);
+        const match = /(.+?)-(\w{6})\.(js|css)$/.exec(obj.path);
         if (match) {
           obj.path = match[2];
         }
