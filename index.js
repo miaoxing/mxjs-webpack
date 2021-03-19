@@ -149,8 +149,6 @@ class WebpackConfig {
             test: /\.(jpg|png|gif|svg|ttf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
             loader: 'file-loader',
             options: {
-              // 只支持hash，相当于contenthash
-              // https://github.com/webpack-contrib/file-loader/issues/177
               name: useVersioning ? '[path][name]-[hash:6].[ext]' : '[path][name].[ext]',
             },
           },
