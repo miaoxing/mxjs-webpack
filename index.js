@@ -47,16 +47,17 @@ class WebpackConfig {
   }
 
   getConfig() {
+    const isDev = !this.isProd;
     const isProd = this.isProd;
     const useVersioning = this.useVersioning;
 
     const config = {
       name: this.name,
-      mode: this.isProd ? 'production' : 'development',
+      mode: isProd ? 'production' : 'development',
       // HMR/Live Reloading broken
       // https://github.com/webpack/webpack-dev-server/issues/2758#issuecomment-710086019
-      target: this.isProd ? 'browserslist' : 'web',
-      devtool: this.isProd ? false : 'eval',
+      target: isProd ? 'browserslist' : 'web',
+      devtool: isProd ? false : 'eval',
       resolve: {
         extensions: ['.tsx', '.ts', '.js'],
         modules: [
@@ -98,7 +99,7 @@ class WebpackConfig {
                 options: {
                   cacheDirectory: true,
                   plugins: [
-                    !this.isProd && require.resolve('react-refresh/babel'),
+                    isDev && require.resolve('react-refresh/babel'),
                   ].filter(Boolean),
                 },
               },
@@ -157,16 +158,36 @@ class WebpackConfig {
       },
       externals: this.externals,
       optimization: {
-        removeAvailableModules: this.isProd,
-        removeEmptyChunks: this.isProd,
-        // splitChunks: this.isProd ? {} : false,
+        removeAvailableModules: isProd,
+        removeEmptyChunks: isProd,
+        runtimeChunk: {
+          name: this.manifest ? ((entrypoint) => `${entrypoint.name}-manifest`) : false,
+        },
       },
       plugins: [
         new MiniCssExtractPlugin({
           filename: useVersioning ? '[name]-[contenthash:6].css' : '[name].css',
           chunkFilename: useVersioning ? '[id]-[contenthash:6].css' : '[id].css',
         }),
-        !this.isProd && new ReactRefreshWebpackPlugin(),
+        isDev && new ReactRefreshWebpackPlugin(),
+        useVersioning && new WebpackManifestPlugin({
+          fileName: (this.name ? this.name + '-' : '') + 'assets-hash.json',
+          filter: function (obj) {
+            return obj.isInitial;
+          },
+          map: function (obj) {
+            // path 改为只要 hash 部分
+            const match = /(.+?)-(\w{6})\.(js|css)$/.exec(obj.path);
+            if (match) {
+              obj.path = match[2];
+            }
+            return obj;
+          },
+        }),
+        isProd && new webpack.LoaderOptionsPlugin({
+          minimize: true,
+          debug: false,
+        }),
         // new HardSourceWebpackPlugin(),
         // new BundleAnalyzerPlugin(),
       ].filter(Boolean),
@@ -186,46 +207,7 @@ class WebpackConfig {
       },
     };
 
-    if (this.manifest) {
-      config.optimization.runtimeChunk = {
-        name: (this.name ? this.name + '-' : '') + 'manifest',
-      };
-    }
-
-    if (useVersioning) {
-      config.plugins.push(this.getManifestPluginConfig(this.buildDir));
-    }
-
-    if (isProd) {
-      config.optimization.moduleIds = 'deterministic';
-      config.plugins.push(this.getWebpackLoaderOptionsPlugin());
-    }
-
     return config;
-  }
-
-  getWebpackLoaderOptionsPlugin() {
-    return new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false,
-    });
-  }
-
-  getManifestPluginConfig() {
-    return new WebpackManifestPlugin({
-      fileName: (this.name ? this.name + '-' : '') + 'assets-hash.json',
-      filter: function (obj) {
-        return obj.isInitial;
-      },
-      map: function (obj) {
-        // path改为只要hash部分
-        const match = /(.+?)-(\w{6})\.(js|css)$/.exec(obj.path);
-        if (match) {
-          obj.path = match[2];
-        }
-        return obj;
-      },
-    });
   }
 
   static build(options = {}) {
