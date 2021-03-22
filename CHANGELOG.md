@@ -1,3 +1,21 @@
+# [0.2.0](https://github.com/miaoxing/mxjs-webpack/compare/v0.1.3...v0.2.0) (2021-03-22)
+
+
+### Bug Fixes
+
+* 解决 hot reload 失效，使用 `react-refresh` 替代 `react-hot-loader` ([6a1d44e](https://github.com/miaoxing/mxjs-webpack/commit/6a1d44ed6b8266c2676044ae572ccb98e7ee66a3))
+
+
+### Features
+
+* 升级到 Webpack 5 ([d5fc3ff](https://github.com/miaoxing/mxjs-webpack/commit/d5fc3ff13949c74f75b77ca2ed5e95dea606e1ff))
+* 增加获取多个插件 webpack 配置的脚本 ([abe42a5](https://github.com/miaoxing/mxjs-webpack/commit/abe42a573d9f178e8ec3cd072e7efaa42addc9eb))
+
+
+### BREAKING CHANGES
+
+* 移除 `react-hot-loader` 相关功能
+
 ## [0.1.3](https://github.com/miaoxing/mxjs-webpack/compare/v0.1.2...v0.1.3) (2021-03-12)
 
 
