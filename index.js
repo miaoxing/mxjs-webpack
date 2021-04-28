@@ -83,7 +83,7 @@ class WebpackConfig {
             loader: 'awesome-typescript-loader',
             exclude: [
               /node_modules/,
-              /\.test\.tsx?$/
+              /\.test\.tsx?$/,
             ],
             options: {
               useCache: true,
@@ -106,7 +106,7 @@ class WebpackConfig {
             ],
             exclude: [
               /node_modules/,
-              /\.test\.js$/
+              /\.test\.js$/,
             ],
           },
           {
@@ -166,6 +166,8 @@ class WebpackConfig {
         new MiniCssExtractPlugin({
           filename: useVersioning ? '[name]-[contenthash:6].css' : '[name].css',
           chunkFilename: useVersioning ? '[id]-[contenthash:6].css' : '[id].css',
+          // 异步加载时极易出现顺序警告
+          ignoreOrder: true,
         }),
         isDev && new ReactRefreshWebpackPlugin(),
         useVersioning && new WebpackManifestPlugin({
