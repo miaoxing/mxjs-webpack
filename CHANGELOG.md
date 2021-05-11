@@ -1,3 +1,18 @@
+## [0.2.1](https://github.com/miaoxing/mxjs-webpack/compare/v0.2.0...v0.2.1) (2021-05-11)
+
+
+### Bug Fixes
+
+* **MiniCssExtractPlugin:** 忽略顺序， 异步加载时极易出现顺序警告 ([c7754f6](https://github.com/miaoxing/mxjs-webpack/commit/c7754f60906025c468e27b2e7f988bd0d18120d6))
+
+
+
+
+
+### Dependencies
+
+* **@miaoxing/dev:** upgrade from `6.4.0` to `7.0.0`
+
 # [0.2.0](https://github.com/miaoxing/mxjs-webpack/compare/v0.1.3...v0.2.0) (2021-03-22)
 
 
