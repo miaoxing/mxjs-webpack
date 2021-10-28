@@ -1,3 +1,13 @@
+## [0.2.3](https://github.com/miaoxing/mxjs-webpack/compare/v0.2.2...v0.2.3) (2021-10-28)
+
+
+
+
+
+### Dependencies
+
+* **@miaoxing/dev:** upgrade from `7.0.1` to `8.0.0`
+
 ## [0.2.2](https://github.com/miaoxing/mxjs-webpack/compare/v0.2.1...v0.2.2) (2021-05-12)
 
 
