@@ -194,7 +194,7 @@ class WebpackConfig {
       devServer: {
         // Fix "Invalid Host/Origin Header" warning
         // @link https://github.com/webpack/webpack-dev-server/issues/1604
-        disableHostCheck: true,
+        allowedHosts: 'all',
         headers: {
           'Access-Control-Allow-Origin': '*',
         },
