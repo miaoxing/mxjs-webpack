@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 // const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
@@ -27,7 +27,6 @@ class WebpackConfig {
 
     // HMR不支持chunkhash，只支持hash
     this.useVersioning = !this.isHot;
-    this.publicPath = this.isProd ? '/' + this.distDir + '/' : 'http://localhost:8080/' + this.distDir + '/';
 
     // 供外部注入样式变量
     this.sassLoaderOptions = options.sassLoaderOptions || {};
@@ -69,7 +68,8 @@ class WebpackConfig {
       entry: this.getEntries(),
       output: {
         path: this.buildDir,
-        publicPath: this.publicPath,
+        // 指定生成 JS 和 CSS 的根路径，这样多级页面（如 sub-dir/sub-page）才能访问到
+        publicPath: '/',
         filename: useVersioning ? '[name]-[chunkhash:6].js' : '[name].js',
         chunkFilename: useVersioning ? '[name]-[chunkhash:6].js' : '[name].js',
         pathinfo: false,
@@ -163,6 +163,10 @@ class WebpackConfig {
         },
       },
       plugins: [
+        new HtmlWebpackPlugin({
+          filename: this.name + '.html',
+          template: 'plugins/app/modules/index.html',
+        }),
         new MiniCssExtractPlugin({
           filename: useVersioning ? '[name]-[contenthash:6].css' : '[name].css',
           chunkFilename: useVersioning ? '[id]-[contenthash:6].css' : '[id].css',
@@ -170,20 +174,6 @@ class WebpackConfig {
           ignoreOrder: true,
         }),
         isDev && new ReactRefreshWebpackPlugin(),
-        useVersioning && new WebpackManifestPlugin({
-          fileName: (this.name ? this.name + '-' : '') + 'assets-hash.json',
-          filter: function (obj) {
-            return obj.isInitial;
-          },
-          map: function (obj) {
-            // path 改为只要 hash 部分
-            const match = /(.+?)-(\w{6})\.(js|css)$/.exec(obj.path);
-            if (match) {
-              obj.path = match[2];
-            }
-            return obj;
-          },
-        }),
         isProd && new webpack.LoaderOptionsPlugin({
           minimize: true,
           debug: false,
@@ -195,6 +185,12 @@ class WebpackConfig {
         // Fix "Invalid Host/Origin Header" warning
         // @link https://github.com/webpack/webpack-dev-server/issues/1604
         allowedHosts: 'all',
+        historyApiFallback: {
+          rewrites: [
+            // NOTE: 如果有多个入口，需在这里加上
+            {from: /^\/admin/, to: '/admin.html'},
+          ],
+        },
         headers: {
           'Access-Control-Allow-Origin': '*',
         },
