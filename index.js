@@ -156,8 +156,6 @@ class WebpackConfig {
       },
       externals: this.externals,
       optimization: {
-        removeAvailableModules: isProd,
-        removeEmptyChunks: isProd,
         runtimeChunk: {
           name: this.manifest ? ((entrypoint) => `${entrypoint.name}-manifest`) : false,
         },
