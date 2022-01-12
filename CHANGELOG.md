@@ -1,3 +1,33 @@
+# [0.3.0](https://github.com/miaoxing/mxjs-webpack/compare/v0.2.3...v0.3.0) (2022-01-12)
+
+
+### Bug Fixes
+
+* **webpack:** 解决 ts 构建失败，替换 `awesome-typescript-loader` 为 `ts-loader` ([c72eb23](https://github.com/miaoxing/mxjs-webpack/commit/c72eb231107a2787078d1b0391138ec77a89567d))
+
+
+### Features
+
+* **webpack:** 更新 `css-loader` 到 `^6.5.1` ([a623cb3](https://github.com/miaoxing/mxjs-webpack/commit/a623cb38e3b27394ddd895a39e0698afc55c9245))
+* 更新 typescript 到 `^4.5.2` ([a3c2722](https://github.com/miaoxing/mxjs-webpack/commit/a3c2722a279c8d5953e4de758ab785a0a8f5bed4))
+* **webpack:** 改为通过 `HtmlWebpackPlugin` 生成静态首页，移除 `WebpackManifestPlugin` 生成的映射表 ([f9862c9](https://github.com/miaoxing/mxjs-webpack/commit/f9862c90a8db9a6c7b9bab6e616eaa6ba979b9c5))
+* **webpack:** 更新 `webpack-dev-server` 从 3 到 4 ([e287e72](https://github.com/miaoxing/mxjs-webpack/commit/e287e726776f0ba3503febf31cdd6df196a35133))
+
+
+### BREAKING CHANGES
+
+* 更新 typescript 到 `^4.5.2`
+* **webpack:** 改为通过 `HtmlWebpackPlugin` 生成静态首页，移除 `WebpackManifestPlugin` 生成的映射表
+* **webpack:** 更新 `webpack-dev-server` 从 3 到 4
+
+
+
+
+
+### Dependencies
+
+* **@miaoxing/dev:** upgrade from `8.0.0` to `8.0.1`
+
 ## [0.2.3](https://github.com/miaoxing/mxjs-webpack/compare/v0.2.2...v0.2.3) (2021-10-28)
 
 
