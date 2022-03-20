@@ -194,6 +194,10 @@ class WebpackConfig {
           '**/*.php',
         ],
       },
+      cache: {
+        // 明显加快构建时间
+        type: 'filesystem',
+      },
     };
 
     return config;
