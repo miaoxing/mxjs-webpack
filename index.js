@@ -93,6 +93,8 @@ class WebpackConfig {
                 loader: 'babel-loader',
                 options: {
                   cacheDirectory: true,
+                  // https://github.com/facebook/create-react-app/issues/6846
+                  cacheCompression: false,
                   plugins: [
                     isDev && require.resolve('react-refresh/babel'),
                   ].filter(Boolean),
