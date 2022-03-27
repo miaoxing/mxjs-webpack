@@ -161,6 +161,7 @@ class WebpackConfig {
         new HtmlWebpackPlugin({
           filename: this.name + '.html',
           template: __dirname + '/index.html',
+          minify: false,
         }),
         new MiniCssExtractPlugin({
           filename: useVersioning ? '[name]-[contenthash:6].css' : '[name].css',
