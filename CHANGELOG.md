@@ -1,3 +1,13 @@
+## [0.3.2](https://github.com/miaoxing/mxjs-webpack/compare/v0.3.1...v0.3.2) (2022-03-31)
+
+
+### Features
+
+* **webpack:** 不压缩 babel 缓存 ([47b3768](https://github.com/miaoxing/mxjs-webpack/commit/47b3768a51d05f027d7ae6d3208f417271db9503))
+* **webpack:** 允许手动修改接口路径 ([eb38c3b](https://github.com/miaoxing/mxjs-webpack/commit/eb38c3b0ea69fa3a5fb93918d41d5f236d5e6d86))
+* **webpack:** 增加 webpack 文件缓存 ([43139fd](https://github.com/miaoxing/mxjs-webpack/commit/43139fd92a4798835e329b2adde8122fef37aaaa))
+* **webpack:** 模板移到插件目录下 ([792bea9](https://github.com/miaoxing/mxjs-webpack/commit/792bea92c2f861fe076c3a2db55158c529d2e2da))
+
 ## [0.3.1](https://github.com/miaoxing/mxjs-webpack/compare/v0.3.0...v0.3.1) (2022-02-05)
 
 
