@@ -22,11 +22,9 @@ class WebpackConfig {
     }
 
     this.isProd = process.env.NODE_ENV === 'production';
-    // TODO better detection
-    this.isHot = process.argv[3] === '--hot';
 
     // HMR不支持chunkhash，只支持hash
-    this.useVersioning = !this.isHot;
+    this.useVersioning = this.isProd;
 
     // 供外部注入样式变量
     this.sassLoaderOptions = options.sassLoaderOptions || {};
@@ -178,6 +176,7 @@ class WebpackConfig {
         // new BundleAnalyzerPlugin(),
       ].filter(Boolean),
       devServer: {
+        hot: true,
         // Fix "Invalid Host/Origin Header" warning
         // @link https://github.com/webpack/webpack-dev-server/issues/1604
         allowedHosts: 'all',
