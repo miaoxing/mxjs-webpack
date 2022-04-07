@@ -160,6 +160,7 @@ class WebpackConfig {
           filename: this.name + '.html',
           template: __dirname + '/index.html',
           minify: false,
+          baseApiUrl: process.env.BASE_API_URL,
         }),
         new MiniCssExtractPlugin({
           filename: useVersioning ? '[name]-[contenthash:6].css' : '[name].css',
