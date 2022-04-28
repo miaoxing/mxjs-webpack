@@ -156,11 +156,13 @@ class WebpackConfig {
         },
       },
       plugins: [
+        new webpack.DefinePlugin({
+          'process.env.BASE_API_URL': JSON.stringify(process.env.BASE_API_URL),
+        }),
         new HtmlWebpackPlugin({
           filename: this.name + '.html',
           template: __dirname + '/index.html',
           minify: false,
-          baseApiUrl: process.env.BASE_API_URL,
         }),
         new MiniCssExtractPlugin({
           filename: useVersioning ? '[name]-[contenthash:6].css' : '[name].css',
