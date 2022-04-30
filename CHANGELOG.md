@@ -1,3 +1,11 @@
+## [0.3.3](https://github.com/miaoxing/mxjs-webpack/compare/v0.3.2...v0.3.3) (2022-04-30)
+
+
+### Features
+
+* **u, webpack:** 允许通过环境变量指定接口地址 ([64a1c60](https://github.com/miaoxing/mxjs-webpack/commit/64a1c601469178985e88fbb20e0b42f8aba1dfb2))
+* **webpack:** 默认开发环境时都启用热重载 ([328a0f5](https://github.com/miaoxing/mxjs-webpack/commit/328a0f53fca944b8337042a6c6c9d8e351bd261c))
+
 ## [0.3.2](https://github.com/miaoxing/mxjs-webpack/compare/v0.3.1...v0.3.2) (2022-03-31)
 
 
