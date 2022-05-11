@@ -159,6 +159,7 @@ class WebpackConfig {
         new webpack.DefinePlugin({
           'process.env.BASE_API_URL': JSON.stringify(process.env.BASE_API_URL),
           'process.env.ROUTER_MODE': JSON.stringify(process.env.ROUTER_MODE),
+          'process.env.API_REWRITE': JSON.stringify(process.env.API_REWRITE),
         }),
         new HtmlWebpackPlugin({
           filename: this.name + '.html',
