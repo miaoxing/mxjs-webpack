@@ -44,12 +44,13 @@ class WebpackConfig {
   }
 
   getConfig() {
+    const name = this.name;
     const isDev = !this.isProd;
     const isProd = this.isProd;
     const useVersioning = this.useVersioning;
 
     const config = {
-      name: this.name,
+      name: name,
       mode: isProd ? 'production' : 'development',
       // HMR/Live Reloading broken
       // https://github.com/webpack/webpack-dev-server/issues/2758#issuecomment-710086019
@@ -68,8 +69,8 @@ class WebpackConfig {
         path: this.buildDir,
         // 指定生成 JS 和 CSS 的根路径，这样多级页面（如 sub-dir/sub-page）才能访问到
         publicPath: '/',
-        filename: useVersioning ? '[name]-[chunkhash:6].js' : '[name].js',
-        chunkFilename: useVersioning ? '[name]-[chunkhash:6].js' : '[name].js',
+        filename: useVersioning ? (name + '/[name]-[chunkhash:6].js') : '[name].js',
+        chunkFilename: useVersioning ? (name + '/[name]-[chunkhash:6].js') : '[name].js',
         pathinfo: false,
         // Fix https://reactjs.org/docs/cross-origin-errors.html
         crossOriginLoading: 'anonymous',
@@ -144,7 +145,7 @@ class WebpackConfig {
             test: /\.(jpg|png|gif|svg|ttf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
             loader: 'file-loader',
             options: {
-              name: useVersioning ? '[path][name]-[hash:6].[ext]' : '[path][name].[ext]',
+              name: useVersioning ? (name +'/[path][name]-[hash:6].[ext]') : '[path][name].[ext]',
             },
           },
         ],
@@ -162,13 +163,13 @@ class WebpackConfig {
           'process.env.API_REWRITE': JSON.stringify(process.env.API_REWRITE),
         }),
         new HtmlWebpackPlugin({
-          filename: this.name + '.html',
+          filename: name + '.html',
           template: __dirname + '/index.html',
           minify: false,
         }),
         new MiniCssExtractPlugin({
-          filename: useVersioning ? '[name]-[contenthash:6].css' : '[name].css',
-          chunkFilename: useVersioning ? '[id]-[contenthash:6].css' : '[id].css',
+          filename: useVersioning ? (name + '/[name]-[contenthash:6].css') : '[name].css',
+          chunkFilename: useVersioning ? (name + '/[id]-[contenthash:6].css') : '[id].css',
           // 异步加载时极易出现顺序警告
           ignoreOrder: true,
         }),
