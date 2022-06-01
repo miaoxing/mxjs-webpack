@@ -1,6 +1,6 @@
 {
   "name": "@mxjs/webpack",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "main": "index.js",
   "license": "MIT",
   "publishConfig": {
@@ -35,7 +35,7 @@
     "webpack-dev-server": "^4.5.0"
   },
   "devDependencies": {
-    "@miaoxing/dev": "^8.1.0"
+    "@miaoxing/dev": "^8.1.1"
   },
   "ciDependencies": {
     "babel-preset-miaoxing": "miaoxing/babel-preset-miaoxing",

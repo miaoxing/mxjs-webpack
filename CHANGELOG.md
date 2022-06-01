@@ -1,3 +1,19 @@
+## [0.3.4](https://github.com/miaoxing/mxjs-webpack/compare/v0.3.3...v0.3.4) (2022-06-01)
+
+
+### Features
+
+* **u:** 允许配置环境变量 `ROUTER_MODE` 来指定路由模式 ([9b7c2ec](https://github.com/miaoxing/mxjs-webpack/commit/9b7c2ecd5a60211b6450fda0df11d21576bf9380))
+* **webpack:** 允许配置 `API_REWRITE` 常量来控制接口 URL 是否支持重写 ([beccd2d](https://github.com/miaoxing/mxjs-webpack/commit/beccd2ded310881b1233a94ea22658a64c7667c1))
+
+
+
+
+
+### Dependencies
+
+* **@miaoxing/dev:** upgrade from `8.1.0` to `8.1.1`
+
 ## [0.3.3](https://github.com/miaoxing/mxjs-webpack/compare/v0.3.2...v0.3.3) (2022-04-30)
 
 
