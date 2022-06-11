@@ -15,7 +15,8 @@ class WebpackConfig {
     this.name = options.name;
     this.manifest = options.manifest || false;
     this.distDir = options.distDir || 'dist';
-    this.buildDir = options.buildDir || path.resolve(this.rootDir, 'public/' + this.distDir);
+
+    this.buildDir = options.buildDir || path.resolve(this.rootDir, this.distDir, this.name);
     this.externals = options.externals || {};
     if (options.getEntries) {
       this.getEntries = options.getEntries;
