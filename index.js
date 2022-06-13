@@ -11,29 +11,14 @@ class WebpackConfig {
   constructor(options) {
     // 基于当前目录
     this.rootDir = process.cwd();
+    this.isProd = process.env.NODE_ENV === 'production';
 
     this.name = options.name;
-    if (options.getEntries) {
-      this.getEntries = options.getEntries;
-    }
-
-    this.isProd = process.env.NODE_ENV === 'production';
+    this.entry = options.entry;
 
     // 供外部注入样式变量
     this.sassLoaderOptions = options.sassLoaderOptions || {};
     this.lessLoaderOptions = options.lessLoaderOptions || {};
-  }
-
-  getEntries() {
-    const entries = {};
-
-    // 初始化通用的模块
-    entries[this.name] = [];
-
-    // 不使用完整路径将提示 Module not found: Error
-    entries[this.name].push(this.rootDir + `/plugins/${this.name}/resources/containers/${this.name}.js`);
-
-    return entries;
   }
 
   getConfig() {
@@ -58,8 +43,8 @@ class WebpackConfig {
           'node_modules',
         ],
       },
-      // NOTE: 需直接传入结果，不能使用回调函数，否则HMR不生效
-      entry: this.getEntries(),
+      // NOTE: 需直接传入结果，不能使用回调函数，否则 HMR 不生效
+      entry: this.entry,
       output: {
         path: path.resolve(this.rootDir, 'dist', name),
         // 指定生成 JS 和 CSS 的根路径，这样多级页面（如 sub-dir/sub-page）才能访问到
