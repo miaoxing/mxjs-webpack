@@ -13,10 +13,6 @@ class WebpackConfig {
     this.rootDir = process.cwd();
 
     this.name = options.name;
-    this.distDir = options.distDir || 'dist';
-
-    this.buildDir = options.buildDir || path.resolve(this.rootDir, this.distDir, this.name);
-    this.externals = options.externals || {};
     if (options.getEntries) {
       this.getEntries = options.getEntries;
     }
@@ -66,7 +62,7 @@ class WebpackConfig {
       // NOTE: 需直接传入结果，不能使用回调函数，否则HMR不生效
       entry: this.getEntries(),
       output: {
-        path: this.buildDir,
+        path: path.resolve(this.rootDir, 'dist', name),
         // 指定生成 JS 和 CSS 的根路径，这样多级页面（如 sub-dir/sub-page）才能访问到
         publicPath: '/',
         filename: useVersioning ? (name + '/[name]-[chunkhash:6].js') : '[name].js',
@@ -145,12 +141,11 @@ class WebpackConfig {
             test: /\.(jpg|png|gif|svg|ttf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
             loader: 'file-loader',
             options: {
-              name: useVersioning ? (name +'/[path][name]-[hash:6].[ext]') : '[path][name].[ext]',
+              name: useVersioning ? (name + '/[path][name]-[hash:6].[ext]') : '[path][name].[ext]',
             },
           },
         ],
       },
-      externals: this.externals,
       optimization: {
         runtimeChunk: true,
       },
