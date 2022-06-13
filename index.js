@@ -13,7 +13,6 @@ class WebpackConfig {
     this.rootDir = process.cwd();
 
     this.name = options.name;
-    this.manifest = options.manifest || false;
     this.distDir = options.distDir || 'dist';
 
     this.buildDir = options.buildDir || path.resolve(this.rootDir, this.distDir, this.name);
@@ -153,9 +152,7 @@ class WebpackConfig {
       },
       externals: this.externals,
       optimization: {
-        runtimeChunk: {
-          name: this.manifest ? ((entrypoint) => `${entrypoint.name}-manifest`) : false,
-        },
+        runtimeChunk: true,
       },
       plugins: [
         new webpack.DefinePlugin({
