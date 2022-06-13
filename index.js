@@ -19,9 +19,6 @@ class WebpackConfig {
 
     this.isProd = process.env.NODE_ENV === 'production';
 
-    // HMR不支持chunkhash，只支持hash
-    this.useVersioning = this.isProd;
-
     // 供外部注入样式变量
     this.sassLoaderOptions = options.sassLoaderOptions || {};
     this.lessLoaderOptions = options.lessLoaderOptions || {};
@@ -43,7 +40,9 @@ class WebpackConfig {
     const name = this.name;
     const isDev = !this.isProd;
     const isProd = this.isProd;
-    const useVersioning = this.useVersioning;
+
+    // HMR 不支持 chunkhash，只支持 hash
+    const useVersioning = isProd;
 
     const config = {
       name: name,
