@@ -15,10 +15,6 @@ class WebpackConfig {
 
     this.name = options.name;
     this.entry = options.entry;
-
-    // 供外部注入样式变量
-    this.sassLoaderOptions = options.sassLoaderOptions || {};
-    this.lessLoaderOptions = options.lessLoaderOptions || {};
   }
 
   getConfig() {
@@ -105,7 +101,6 @@ class WebpackConfig {
               },
               {
                 loader: 'sass-loader',
-                options: this.sassLoaderOptions,
               },
             ],
           },
@@ -117,7 +112,6 @@ class WebpackConfig {
               'css-loader',
               {
                 loader: 'less-loader',
-                options: this.lessLoaderOptions,
               },
             ],
           },
