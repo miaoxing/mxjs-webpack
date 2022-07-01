@@ -1,3 +1,39 @@
+# [1.0.0](https://github.com/miaoxing/mxjs-webpack/compare/v0.3.4...v1.0.0) (2022-07-01)
+
+
+### Bug Fixes
+
+* **webpack:** 解决 "生成文件按目录区分" 后，生成 admin 目录导致访问 admin 路径返回 403 ([ce40449](https://github.com/miaoxing/mxjs-webpack/commit/ce404495217639f5848d19b6cc70db39c9cd1d56))
+
+
+### Code Refactoring
+
+* **webpack:** 移除 `distDir`，`buildDir` 和 `externals` 选项，需要使用可以在获得 webpack 对象后直接修改 ([e6e32f7](https://github.com/miaoxing/mxjs-webpack/commit/e6e32f785955f2c3bf11f3087533237e2ae3a10f))
+* **webpack:** 移除 `getEntries` 方法，改为增加 `entry` 选项 ([4e45c76](https://github.com/miaoxing/mxjs-webpack/commit/4e45c76764a68d0628a3aac120703b1e5ad7347d))
+* **webpack:** 移除 `manifest` 选项，并改为默认启用 `runtimeChunk` ([24dcd84](https://github.com/miaoxing/mxjs-webpack/commit/24dcd84f3d3eb95907b9651a114f4af2e740b521))
+* **webpack:** 移除 `sassLoaderOptions` 和 `lessLoaderOptions` 选项，如需使用，可直接修改 webpack 配置对象 ([ceddb63](https://github.com/miaoxing/mxjs-webpack/commit/ceddb633270cabe0c5c60011506ba4172ace334e))
+
+
+### Features
+
+* 发布 1.0.0 [release 1.0.0] ([c35be0d](https://github.com/miaoxing/mxjs-webpack/commit/c35be0dc8594b1d30f6778a1d11f542d8c630dfc))
+
+
+### BREAKING CHANGES
+
+* **webpack:** 移除 `sassLoaderOptions` 和 `lessLoaderOptions` 选项，如需使用，可直接修改 webpack 配置对象
+* **webpack:** 移除 `getEntries` 方法，改为增加 `entry` 选项
+* **webpack:** 移除 `distDir`，`buildDir` 和 `externals` 选项，需要使用可以在获得 webpack 对象后直接修改
+* **webpack:** 移除 `manifest` 选项，并改为默认启用 `runtimeChunk`
+
+
+
+
+
+### Dependencies
+
+* **@miaoxing/dev:** upgrade from `8.1.1` to `8.1.2`
+
 ## [0.3.4](https://github.com/miaoxing/mxjs-webpack/compare/v0.3.3...v0.3.4) (2022-06-01)
 
 

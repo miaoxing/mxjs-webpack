@@ -35,7 +35,7 @@
     "webpack-dev-server": "^4.5.0"
   },
   "devDependencies": {
-    "@miaoxing/dev": "^8.1.1"
+    "@miaoxing/dev": "^8.1.2"
   },
   "ciDependencies": {
     "babel-preset-miaoxing": "miaoxing/babel-preset-miaoxing",
