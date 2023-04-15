@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/miaoxing/mxjs-webpack/compare/v1.0.2...v2.0.0) (2023-04-15)
+
+
+### Features
+
+* **webpack:** 指定 node >= 14 ([5971ef3](https://github.com/miaoxing/mxjs-webpack/commit/5971ef327995914d643c1d597330216cde8dc145))
+
+
+### BREAKING CHANGES
+
+* **webpack:** 指定 node >= 14
+
 ## [1.0.2](https://github.com/miaoxing/mxjs-webpack/compare/v1.0.1...v1.0.2) (2023-01-01)
 
 
