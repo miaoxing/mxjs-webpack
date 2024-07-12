@@ -33,7 +33,7 @@ class WebpackConfig {
       target: isProd ? 'browserslist' : 'web',
       devtool: isProd ? false : 'eval',
       resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.tsx', '.ts', '.js', '.jsx'],
         modules: [
           this.rootDir,
           'node_modules',
@@ -62,7 +62,7 @@ class WebpackConfig {
             ],
           },
           {
-            test: /.js$/,
+            test: /.jsx?$/,
             use: [
               {
                 loader: 'babel-loader',
