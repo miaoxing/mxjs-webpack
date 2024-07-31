@@ -1,3 +1,18 @@
+# [2.1.0](https://github.com/miaoxing/mxjs-webpack/compare/v2.0.7...v2.1.0) (2024-07-31)
+
+
+### Features
+
+* **webpack:** 支持 jsx 文件 ([a6a6da9](https://github.com/miaoxing/mxjs-webpack/commit/a6a6da9df872a3e00a711adf8dd12961f6e8c354))
+
+
+
+
+
+### Dependencies
+
+* **@miaoxing/dev:** upgrade from `9.1.1` to `9.1.2`
+
 ## [2.0.7](https://github.com/miaoxing/mxjs-webpack/compare/v2.0.6...v2.0.7) (2024-03-31)
 
 
